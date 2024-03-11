@@ -6,15 +6,14 @@ import {
   CreateUserDto,
   UpdatePasswordDto,
 } from './user.interface';
+import { USERS } from 'src/db/db';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [];
-
   getAllUsers(): UserResponse[] {
     const returnUsers: User[] = [];
 
-    this.users.forEach((user) => {
+    USERS.forEach((user) => {
       const userCopy = { ...user };
       delete userCopy.password;
       returnUsers.push(userCopy);
@@ -23,7 +22,7 @@ export class UsersService {
   }
 
   getUserById(id: string): User | undefined {
-    return this.users.find((user) => user.id === id);
+    return USERS.find((user) => user.id === id);
   }
 
   createUser(user: CreateUserDto): User {
@@ -36,14 +35,14 @@ export class UsersService {
       updatedAt: Date.now(),
     };
 
-    this.users.push(newUser);
+    USERS.push(newUser);
     return newUser;
   }
 
   updateUser(id: string, updateDate: UpdatePasswordDto): User {
-    const index = this.users.findIndex((user) => user.id === id);
+    const index = USERS.findIndex((user) => user.id === id);
 
-    const user = this.users[index];
+    const user = USERS[index];
 
     const updateUser: User = {
       ...user,
@@ -52,12 +51,15 @@ export class UsersService {
       version: (user.version += 1),
     };
 
-    this.users[index] = updateUser;
+    USERS[index] = updateUser;
 
     return updateUser;
   }
 
   deleteUser(id: string) {
-    this.users.filter((user) => user.id !== id);
+    const index = USERS.findIndex((user) => user.id === id);
+    if (index !== -1) {
+      USERS.splice(index, 1);
+    }
   }
 }

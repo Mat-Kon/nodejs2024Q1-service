@@ -18,7 +18,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { isValidUUID } from 'src/utils/helperFunctions';
 import { UsersService } from './user.service';
 
-@Controller('users')
+@Controller('user')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -36,7 +36,7 @@ export class UsersController {
   }
 
   @Post()
-  async createUser(@Body() user: CreateUserDto) {
+  createUser(@Body() user: CreateUserDto) {
     if (!user.login || !user.password) {
       throw new HttpException(
         ReasonPhrases.BAD_REQUEST,
@@ -44,7 +44,7 @@ export class UsersController {
       );
     }
 
-    const createdUser = await this.usersService.createUser(user);
+    const createdUser = this.usersService.createUser(user);
     const returnUser = this.userWithoutPassword(createdUser);
 
     return new HttpException(returnUser, StatusCodes.CREATED);
