@@ -14,7 +14,7 @@ import { AlbumsService } from './album.service';
 import { isValidUUID } from 'src/utils/helperFunctions';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-@Controller('album')
+@Controller('api/albums')
 export class AlbumsController {
   constructor(private readonly albumsService: AlbumsService) {}
 

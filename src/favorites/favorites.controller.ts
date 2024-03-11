@@ -13,7 +13,7 @@ import { ALBUMS, ARTISTS, FAVORITES, TRACKS } from 'src/db/db';
 import { isValidUUID } from 'src/utils/helperFunctions';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-@Controller('favs')
+@Controller('api/favs')
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
@@ -22,7 +22,7 @@ export class FavoritesController {
     return this.favoritesService.getAllFavorites();
   }
 
-  @Post('track/:id')
+  @Post('api/track/:id')
   addTrackToFavorites(@Param('id') trackId: string) {
     isValidUUID(trackId);
     this.checkExistInCategory(TRACKS, trackId);
@@ -31,7 +31,7 @@ export class FavoritesController {
     return new HttpException(ReasonPhrases.CREATED, StatusCodes.CREATED);
   }
 
-  @Delete('track/:id')
+  @Delete('api/track/:id')
   @HttpCode(StatusCodes.NO_CONTENT)
   deleteTrackFromFavorites(@Param('id') trackId: string) {
     isValidUUID(trackId);
@@ -40,7 +40,7 @@ export class FavoritesController {
     this.favoritesService.deleteTrackFromFavorites(trackId);
   }
 
-  @Post('album/:id')
+  @Post('api/album/:id')
   addAlbumToFavorites(@Param('id') albumId: string) {
     isValidUUID(albumId);
     this.checkExistInCategory(ALBUMS, albumId);
@@ -48,7 +48,7 @@ export class FavoritesController {
     return new HttpException(ReasonPhrases.CREATED, StatusCodes.CREATED);
   }
 
-  @Delete('album/:id')
+  @Delete('api/album/:id')
   @HttpCode(StatusCodes.NO_CONTENT)
   deleteAlbumFromFavorites(@Param('id') albumId: string) {
     isValidUUID(albumId);
@@ -56,7 +56,7 @@ export class FavoritesController {
     return this.favoritesService.deleteAlbumFromFavorites(albumId);
   }
 
-  @Post('artist/:id')
+  @Post('api/artist/:id')
   addArtistToFavorites(@Param('id') artistId: string) {
     isValidUUID(artistId);
     this.checkExistInCategory(ARTISTS, artistId);
@@ -64,7 +64,7 @@ export class FavoritesController {
     return new HttpException(ReasonPhrases.CREATED, StatusCodes.CREATED);
   }
 
-  @Delete('artist/:id')
+  @Delete('api/artist/:id')
   @HttpCode(StatusCodes.NO_CONTENT)
   deleteArtistFromFavorites(@Param('id') artistId: string) {
     isValidUUID(artistId);

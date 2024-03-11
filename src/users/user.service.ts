@@ -10,10 +10,11 @@ import { USERS } from 'src/db/db';
 
 @Injectable()
 export class UsersService {
+  private user: User[] = [];
   getAllUsers(): UserResponse[] {
     const returnUsers: User[] = [];
 
-    USERS.forEach((user) => {
+    this.user.forEach((user) => {
       const userCopy = { ...user };
       delete userCopy.password;
       returnUsers.push(userCopy);
@@ -22,7 +23,7 @@ export class UsersService {
   }
 
   getUserById(id: string): User | undefined {
-    return USERS.find((user) => user.id === id);
+    return this.user.find((user) => user.id === id);
   }
 
   createUser(user: CreateUserDto): User {
@@ -35,14 +36,14 @@ export class UsersService {
       updatedAt: Date.now(),
     };
 
-    USERS.push(newUser);
+    this.user.push(newUser);
     return newUser;
   }
 
   updateUser(id: string, updateDate: UpdatePasswordDto): User {
-    const index = USERS.findIndex((user) => user.id === id);
+    const index = this.user.findIndex((user) => user.id === id);
 
-    const user = USERS[index];
+    const user = this.user[index];
 
     const updateUser: User = {
       ...user,
@@ -51,13 +52,13 @@ export class UsersService {
       version: (user.version += 1),
     };
 
-    USERS[index] = updateUser;
+    this.user[index] = updateUser;
 
     return updateUser;
   }
 
   deleteUser(id: string) {
-    const index = USERS.findIndex((user) => user.id === id);
-    USERS.splice(index, 1);
+    const index = this.user.findIndex((user) => user.id === id);
+    this.user.splice(index, 1);
   }
 }

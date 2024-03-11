@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuid4 } from 'uuid';
 import { Artist, ArtistDate } from './artist.interface';
-import { ARTISTS, FAVORITES } from 'src/db/db';
+import { ALBUMS, ARTISTS, FAVORITES, TRACKS } from 'src/db/db';
 
 @Injectable()
 export class ArtistsService {
@@ -48,5 +48,17 @@ export class ArtistsService {
     if (indexInFavorites !== -1) {
       FAVORITES.artists.splice(indexInFavorites, 1);
     }
+
+    ALBUMS.forEach((albums) => {
+      if (albums.artistId === id) {
+        albums.artistId = null;
+      }
+    });
+
+    TRACKS.forEach((track) => {
+      if (track.artistId === id) {
+        track.artistId = null;
+      }
+    });
   }
 }

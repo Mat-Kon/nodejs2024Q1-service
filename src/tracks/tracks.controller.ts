@@ -14,7 +14,7 @@ import { isValidUUID } from 'src/utils/helperFunctions';
 import { TrackService } from './tracks.service';
 import { Track, TrackDate } from './tracks.interface';
 
-@Controller('track')
+@Controller('api/tracks')
 export class TrackController {
   constructor(private readonly tracksService: TrackService) {}
 

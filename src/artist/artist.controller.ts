@@ -14,7 +14,7 @@ import { ArtistsService } from './artist.service';
 import { isValidUUID } from 'src/utils/helperFunctions';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-@Controller('artist')
+@Controller('api/artists')
 export class ArtistsController {
   constructor(private readonly artistsService: ArtistsService) {}
 
@@ -25,7 +25,7 @@ export class ArtistsController {
 
   @Get(':id')
   getArtistById(@Param('id') id: string) {
-    const artist = this.getTrack(id);
+    const artist = this.getArtist(id);
     return artist;
   }
 
@@ -44,7 +44,7 @@ export class ArtistsController {
 
   @Put(':id')
   updateArtist(@Param('id') id: string, @Body() artist: Artist) {
-    this.getTrack(id);
+    this.getArtist(id);
 
     const updateArtist = this.artistsService.updateArtist(id, artist);
     return updateArtist;
@@ -53,11 +53,11 @@ export class ArtistsController {
   @Delete(':id')
   @HttpCode(StatusCodes.NO_CONTENT)
   deleteArtist(@Param('id') id: string) {
-    this.getTrack(id);
+    this.getArtist(id);
     this.artistsService.deleteArtist(id);
   }
 
-  private getTrack(id: string) {
+  private getArtist(id: string) {
     isValidUUID(id);
 
     const user = this.artistsService.getArtistById(id);
