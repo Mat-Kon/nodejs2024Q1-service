@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { v4 as uuid4 } from 'uuid';
 import {
   User,
+  UserResponse,
   CreateUserDto,
   UpdatePasswordDto,
-  UserResponse,
-} from 'src/interfaces/user.interface';
-import { v4 as uuid4 } from 'uuid';
+} from './user.interface';
 
 @Injectable()
 export class UsersService {

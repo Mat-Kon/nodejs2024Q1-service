@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AppRoutes } from './interfaces/appRoutes.interface';
+import { AppRoutes } from './types/appRoutes.interface';
 import { config } from 'dotenv';
 
 config();

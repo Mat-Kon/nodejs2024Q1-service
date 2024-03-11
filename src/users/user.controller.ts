@@ -13,10 +13,10 @@ import {
   CreateUserDto,
   UpdatePasswordDto,
   User,
-} from 'src/interfaces/user.interface';
-import { UsersService } from 'src/services/user.service';
+} from 'src/users/user.interface';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { isValidUUID } from 'src/utils/helperFunctions';
+import { UsersService } from './user.service';
 
 @Controller('users')
 export class UsersController {

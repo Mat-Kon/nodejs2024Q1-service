@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { AppRoutes } from './interfaces/appRoutes.interface';
+import { AppRoutes } from './types/appRoutes.interface';
 
 @Controller()
 export class AppController {
