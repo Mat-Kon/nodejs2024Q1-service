@@ -5,3 +5,8 @@ export interface AppRoutes {
   track: string;
   users: string;
 }
+
+export interface FindItems<T> {
+  listId: string[];
+  items: T[];
+}

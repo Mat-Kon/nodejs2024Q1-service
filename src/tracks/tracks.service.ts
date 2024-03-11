@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuid4 } from 'uuid';
 import { Track, TrackDate } from './tracks.interface';
-import { TRACKS } from 'src/db/db';
+import { FAVORITES, TRACKS } from 'src/db/db';
 
 @Injectable()
 export class TrackService {
@@ -46,6 +46,11 @@ export class TrackService {
 
   deleteTrack(id: string) {
     const index = TRACKS.findIndex((track) => track.id === id);
+    const indexInFavorites = FAVORITES.tracks.findIndex((item) => item === id);
     TRACKS.splice(index, 1);
+
+    if (indexInFavorites !== -1) {
+      FAVORITES.tracks.splice(indexInFavorites, 1);
+    }
   }
 }

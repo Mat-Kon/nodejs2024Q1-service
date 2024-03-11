@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuid4 } from 'uuid';
 import { Artist, ArtistDate } from './artist.interface';
-import { ARTISTS } from 'src/db/db';
+import { ARTISTS, FAVORITES } from 'src/db/db';
 
 @Injectable()
 export class ArtistsService {
@@ -42,6 +42,11 @@ export class ArtistsService {
 
   deleteArtist(id: string) {
     const index = ARTISTS.findIndex((artist) => artist.id === id);
+    const indexInFavorites = FAVORITES.artists.findIndex((item) => item === id);
     ARTISTS.splice(index, 1);
+
+    if (indexInFavorites !== -1) {
+      FAVORITES.artists.splice(indexInFavorites, 1);
+    }
   }
 }
