@@ -3,3 +3,8 @@ export interface Artist {
   name: string;
   grammy: boolean;
 }
+
+export interface ArtistDate {
+  name: string;
+  grammy: boolean;
+}

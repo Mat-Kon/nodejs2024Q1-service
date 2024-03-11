@@ -46,8 +46,6 @@ export class TrackService {
 
   deleteTrack(id: string) {
     const index = TRACKS.findIndex((track) => track.id === id);
-    if (index !== -1) {
-      TRACKS.splice(index, 1);
-    }
+    TRACKS.splice(index, 1);
   }
 }

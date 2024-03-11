@@ -26,7 +26,6 @@ export class TrackController {
   @Get(':id')
   getTrackById(@Param('id') id: string) {
     const existTrack = this.getTrack(id);
-
     return existTrack;
   }
 
