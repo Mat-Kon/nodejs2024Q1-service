@@ -31,7 +31,7 @@ export class TrackController {
 
   @Post()
   createTrack(@Body() track: TrackDate) {
-    if (!track.name || !track.duration) {
+    if (!track.name || !track.duration || typeof track.duration !== 'number') {
       throw new HttpException(
         ReasonPhrases.BAD_REQUEST,
         StatusCodes.BAD_REQUEST,
@@ -44,6 +44,13 @@ export class TrackController {
   @Put(':id')
   updateTrack(@Param('id') id: string, @Body() trackDate: Track): Track {
     this.getTrack(id);
+
+    if (typeof trackDate.duration !== 'number') {
+      throw new HttpException(
+        ReasonPhrases.BAD_REQUEST,
+        StatusCodes.BAD_REQUEST,
+      );
+    }
 
     const updateTrack = this.tracksService.updateTrack(id, trackDate);
     return updateTrack;

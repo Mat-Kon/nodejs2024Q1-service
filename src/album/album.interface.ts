@@ -4,3 +4,9 @@ export interface Album {
   year: number;
   artistId: string | null; // refers to Artist
 }
+
+export interface AlbumDate {
+  name: string;
+  year: number;
+  artistId: string | null; // refers to Artist
+}
